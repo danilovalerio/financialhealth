@@ -1,10 +1,11 @@
 ### CRIAR API PARA GASTOS PESSOAIS
 ## Atividades
 
-1. ~~Criar a estrutura do projeto~~
+1. Criar a estrutura do projeto ok
 2. Planejar o sistema
     1. Controle de usuários (CRUD)
-        1. Criar a autenticação com JWT
+       1. Baixar as dependencias (MODEL MAPPER, SPRING SECUTIRY e JWT) ok
+       2. Criar a autenticação com JWT 
     2. Criar centros de custo (CRUD)
         1. Todo centro de custo tem que estar vinculado a um usuario
     3. Criar os títulos, APAGAR e ARECEBER (CRUD)
