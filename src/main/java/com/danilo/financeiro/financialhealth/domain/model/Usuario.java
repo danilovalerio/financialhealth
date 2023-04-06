@@ -10,6 +10,7 @@ public class Usuario implements UserDetails {
     private Long id;
     private String nome;
     private String email;
+    private String senha;
     private String foto;
     private String dataCadastro;
     private String dataInativacao;
@@ -37,6 +38,14 @@ public class Usuario implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public String getFoto() {
@@ -76,33 +85,37 @@ public class Usuario implements UserDetails {
         return null;
     }
 
+    /**
+     * Quando o framework tentar pegar senha, qual será esse campo do usuário
+     * @return
+     */
     @Override
     public String getPassword() {
-        return null;
+        return senha;
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return email;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
