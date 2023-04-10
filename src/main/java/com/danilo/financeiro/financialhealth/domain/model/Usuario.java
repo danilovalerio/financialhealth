@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -29,7 +30,7 @@ public class Usuario implements UserDetails {
     private String foto;
     @Column(nullable = false)
     private String dataCadastro;
-    private String dataInativacao;
+    private Date dataInativacao;
 
     /**
      * Um usuário pode ter muitos títulos
@@ -86,11 +87,11 @@ public class Usuario implements UserDetails {
         this.dataCadastro = dataCadastro;
     }
 
-    public String getDataInativacao() {
+    public Date getDataInativacao() {
         return dataInativacao;
     }
 
-    public void setDataInativacao(String dataInativacao) {
+    public void setDataInativacao(Date dataInativacao) {
         this.dataInativacao = dataInativacao;
     }
 

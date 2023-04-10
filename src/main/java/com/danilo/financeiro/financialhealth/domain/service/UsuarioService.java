@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.swing.text.html.Option;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -66,12 +67,13 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
 
     @Override
     public UsuarioResponseDto atualizar(Long id, UsuarioRequestDto dto) {
-        obterPorId(id);
+        UsuarioResponseDto usuarioBanco = obterPorId(id);
         validarUsuario(dto);
 
         Usuario usuario = mapper.map(dto, Usuario.class);
         //TODO: criptografar a senha do usuário
         usuario.setId(id);
+        usuario.setDataInativacao(usuarioBanco.getDataInativacao());
         usuario = usuarioRepository.save(usuario);
 
         return mapper.map(usuario, UsuarioResponseDto.class);
@@ -80,8 +82,14 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
     @Override
     public void deletar(Long id) {
 
-        obterPorId(id);
-        usuarioRepository.deleteById(id);
+        UsuarioResponseDto usuarioEncontrado = obterPorId(id);
+
+        Usuario usuario = mapper.map(usuarioEncontrado, Usuario.class);
+
+        usuario.setDataInativacao(new Date());
+
+        usuarioRepository.save(usuario);
+        //usuarioRepository.deleteById(id);
 
     }
 
