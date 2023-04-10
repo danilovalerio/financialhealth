@@ -1,5 +1,6 @@
 package com.danilo.financeiro.financialhealth.domain.service;
 
+import com.danilo.financeiro.financialhealth.domain.exception.ResourceBadRequestException;
 import com.danilo.financeiro.financialhealth.domain.exception.ResourceNotFoundException;
 import com.danilo.financeiro.financialhealth.domain.model.Usuario;
 import com.danilo.financeiro.financialhealth.domain.respository.UsuarioRepository;
@@ -53,6 +54,8 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
 
     @Override
     public UsuarioResponseDto cadastrar(UsuarioRequestDto dto) {
+        validarUsuario(dto);
+
         Usuario usuario = mapper.map(dto, Usuario.class);
         usuario.setId(null);
         //TODO: criptografar a senha do usuário
@@ -63,8 +66,8 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
 
     @Override
     public UsuarioResponseDto atualizar(Long id, UsuarioRequestDto dto) {
-
         obterPorId(id);
+        validarUsuario(dto);
 
         Usuario usuario = mapper.map(dto, Usuario.class);
         //TODO: criptografar a senha do usuário
@@ -80,5 +83,11 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
         obterPorId(id);
         usuarioRepository.deleteById(id);
 
+    }
+
+    private void validarUsuario(UsuarioRequestDto dto){
+        if (dto.getEmail() == null || dto.getSenha() == null || dto.getEmail().isEmpty() || dto.getSenha().isEmpty()){
+            throw new ResourceBadRequestException("E-mail e ou senha são obrigatórios");
+        }
     }
 }
