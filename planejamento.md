@@ -1,4 +1,5 @@
 ### CRIAR API PARA GASTOS PESSOAIS
+repositorio do projeto original: https://github.com/WebersonRodrigues/api-meus-gastos.git
 ## Atividades
 
 1. Criar a estrutura do projeto ok

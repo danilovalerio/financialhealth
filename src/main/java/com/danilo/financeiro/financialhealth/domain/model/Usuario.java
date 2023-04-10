@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Usuario implements UserDetails {
+public class Usuario {
 
     private static final String USUARIO = "usuario";
     @Id
@@ -103,7 +103,7 @@ public class Usuario implements UserDetails {
         this.titulos = titulos;
     }
 
-    @Override
+   /* @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
@@ -111,7 +111,7 @@ public class Usuario implements UserDetails {
     /**
      * Quando o framework tentar pegar senha, qual será esse campo do usuário
      * @return
-     */
+
     @Override
     public String getPassword() {
         return senha;
@@ -140,5 +140,5 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
+    }*/
 }

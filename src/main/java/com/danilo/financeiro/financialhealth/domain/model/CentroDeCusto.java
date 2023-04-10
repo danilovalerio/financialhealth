@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "centrodecusto")
 public class CentroDeCusto {
-    private static final String CENTRO_DE_CUSTO = "centrodecusto";
+    private static final String CENTRO_DE_CUSTO = "centrosDeCustos";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
