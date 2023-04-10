@@ -1,18 +1,25 @@
 package com.danilo.financeiro.financialhealth.dto.usuario;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.Date;
 
 /**
- * Tudo que é mínimo para cadastro do Usuário
+ * Resposta após criar o usuario
  */
-public class UsuarioRequestDTO {
+public class UsuarioResponseDto {
+
+    private String id;
     private String nome;
     private String email;
-    private String senha;
     private String foto;
+    private Date dataInativacao;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -30,19 +37,19 @@ public class UsuarioRequestDTO {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public String getFoto() {
         return foto;
     }
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Date getDataInativacao() {
+        return dataInativacao;
+    }
+
+    public void setDataInativacao(Date dataInativacao) {
+        this.dataInativacao = dataInativacao;
     }
 }
