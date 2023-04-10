@@ -3,7 +3,7 @@
 
 1. Criar a estrutura do projeto ok
 2. Planejar o sistema
-    1. Controle de usuários (CRUD)
+    1. Controle de usuários (CRUD - REPOSITORY -> SERVICE -> CONTROLLER)
        1. Baixar as dependencias (MODEL MAPPER, SPRING SECUTIRY e JWT) ok
        2. Criar model Usuário ok
        3. Criar a autenticação com JWT 
