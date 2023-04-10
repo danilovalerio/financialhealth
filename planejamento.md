@@ -5,9 +5,11 @@
 2. Planejar o sistema
     1. Controle de usuários (CRUD)
        1. Baixar as dependencias (MODEL MAPPER, SPRING SECUTIRY e JWT) ok
-       2. Criar a autenticação com JWT 
+       2. Criar model Usuário ok
+       3. Criar a autenticação com JWT 
     2. Criar centros de custo (CRUD)
-        1. Todo centro de custo tem que estar vinculado a um usuario
+       1. Criar model centro de custo ok 
+       2. Todo centro de custo tem que estar vinculado a um usuario
     3. Criar os títulos, APAGAR e ARECEBER (CRUD)
         1. Todo título deve estar vinculado a um Usuário
         2. Todo título deve estar vinculado a 1 ou “N” centro de custo
