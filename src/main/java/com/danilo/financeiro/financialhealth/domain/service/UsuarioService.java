@@ -1,5 +1,6 @@
 package com.danilo.financeiro.financialhealth.domain.service;
 
+import com.danilo.financeiro.financialhealth.domain.exception.ResourceNotFoundException;
 import com.danilo.financeiro.financialhealth.domain.model.Usuario;
 import com.danilo.financeiro.financialhealth.domain.respository.UsuarioRepository;
 import com.danilo.financeiro.financialhealth.dto.usuario.UsuarioRequestDto;
@@ -44,7 +45,7 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
         Optional<Usuario> optUsuario = usuarioRepository.findById(id);
 
         if (optUsuario.isEmpty()) {
-            //Lançar uma Exception
+            throw new ResourceNotFoundException("Não foi possível encontrar o usuário com o id: "+ id);
         }
 
         return mapper.map(optUsuario.get(), UsuarioResponseDto.class);
@@ -52,16 +53,32 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
 
     @Override
     public UsuarioResponseDto cadastrar(UsuarioRequestDto dto) {
-        return null;
+        Usuario usuario = mapper.map(dto, Usuario.class);
+        usuario.setId(null);
+        //TODO: criptografar a senha do usuário
+        usuario = usuarioRepository.save(usuario);
+
+        return mapper.map(usuario, UsuarioResponseDto.class);
     }
 
     @Override
     public UsuarioResponseDto atualizar(Long id, UsuarioRequestDto dto) {
-        return null;
+
+        obterPorId(id);
+
+        Usuario usuario = mapper.map(dto, Usuario.class);
+        //TODO: criptografar a senha do usuário
+        usuario.setId(id);
+        usuario = usuarioRepository.save(usuario);
+
+        return mapper.map(usuario, UsuarioResponseDto.class);
     }
 
     @Override
     public void deletar(Long id) {
+
+        obterPorId(id);
+        usuarioRepository.deleteById(id);
 
     }
 }
