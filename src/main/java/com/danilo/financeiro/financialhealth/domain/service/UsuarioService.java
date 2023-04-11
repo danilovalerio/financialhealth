@@ -75,6 +75,7 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
         Usuario usuario = mapper.map(dto, Usuario.class);
         //TODO: criptografar a senha do usuário
         usuario.setId(id);
+        usuario.setDataCadastro(usuarioBanco.getDataCadastro());
         usuario.setDataInativacao(usuarioBanco.getDataInativacao());
         usuario = usuarioRepository.save(usuario);
 
