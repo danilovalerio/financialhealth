@@ -2,11 +2,16 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/financialhealth
+    driver-class-name: org.postgresql.Driver
     username: postgres
     password: 123456
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/financialhealth
+    platform: postgres
   jpa:
+    show-sql: true
+    generate-ddl: true
     hibernate:
       dll-auto: update
-    show-sql: true
+    database: postgresql
+
+
