@@ -1,6 +1,7 @@
 package com.danilo.financeiro.financialhealth.security;
 
 import com.danilo.financeiro.financialhealth.domain.model.Usuario;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -57,6 +58,25 @@ public class JwtUtil {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return "";
+        }
+    }
+
+    /**
+     * Reivindicações - Claims a partir de um token com sua chave privada pega as infos dentro do mesmo
+     * @param token que será desimcriptografado
+     * @return
+     */
+    private Claims getClaims(String token) {
+        try {
+            Key secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes("UTF-8"));
+            /**
+             * Vai desimcriptografar o token e pegar o dados dentro dele
+             */
+            Claims claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).getBody();
+            return claims;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
