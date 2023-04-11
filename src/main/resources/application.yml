@@ -14,4 +14,11 @@ spring:
       dll-auto: update
     database: postgresql
 
+#SecretKey JWT
+auth:
+  jwt:
+    secret: DanielaVeigaViana@82.OliviaVianaValerio@22.DaniloValerioSilva@86
+
+  #1 dia em milliseconds 86400000
+  jwt-expiration-millisec: 86400000
 
