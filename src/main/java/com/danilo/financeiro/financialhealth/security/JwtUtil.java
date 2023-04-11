@@ -79,4 +79,38 @@ public class JwtUtil {
             return null;
         }
     }
+
+    /**
+     * Pega email do usuario do token, por e-mail ser unico é o identificador
+     * @param token
+     * @return
+     */
+
+    public String getUserName(String token) {
+        Claims claims = getClaims(token);
+
+        if (claims == null) {
+            return null;
+        }
+
+        return claims.getSubject();
+    }
+
+    public boolean isValidToken(String token) {
+        Claims claims = getClaims(token);
+
+        if (claims == null) {
+            return false;
+        }
+
+        String email = claims.getSubject();
+        Date dataExpiracao = claims.getExpiration();
+        Date agora = new Date(System.currentTimeMillis());
+
+        if (email != null && agora.before(dataExpiracao)){
+            return true;
+        }
+
+        return false;
+    }
 }
