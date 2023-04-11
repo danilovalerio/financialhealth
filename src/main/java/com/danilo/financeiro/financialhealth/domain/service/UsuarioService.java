@@ -85,10 +85,13 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
     @Override
     public void deletar(Long id) {
 
-        UsuarioResponseDto usuarioEncontrado = obterPorId(id);
+        Optional<Usuario> optUsuario = usuarioRepository.findById(id);
 
-        Usuario usuario = mapper.map(usuarioEncontrado, Usuario.class);
+        if (optUsuario.isEmpty()) {
+            throw new ResourceNotFoundException("Não foi possível encontrar o usuário com o id: "+id);
+        }
 
+        Usuario usuario = optUsuario.get();
         usuario.setDataInativacao(new Date());
 
         usuarioRepository.save(usuario);
