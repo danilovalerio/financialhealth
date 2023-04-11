@@ -10,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,6 +60,7 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
 
         Usuario usuario = mapper.map(dto, Usuario.class);
         usuario.setId(null);
+        usuario.setDataCadastro(new Date());
         //TODO: criptografar a senha do usuário
         usuario = usuarioRepository.save(usuario);
 

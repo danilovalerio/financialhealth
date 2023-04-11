@@ -26,7 +26,7 @@ public class Usuario {
     @Column(columnDefinition = "TEXT")
     private String foto;
     @Column(nullable = false)
-    private String dataCadastro;
+    private Date dataCadastro;
     private Date dataInativacao;
 
     /**
@@ -76,11 +76,11 @@ public class Usuario {
         this.foto = foto;
     }
 
-    public String getDataCadastro() {
+    public Date getDataCadastro() {
         return dataCadastro;
     }
 
-    public void setDataCadastro(String dataCadastro) {
+    public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
     }
 
