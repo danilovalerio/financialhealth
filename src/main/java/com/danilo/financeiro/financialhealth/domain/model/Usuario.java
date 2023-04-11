@@ -1,12 +1,15 @@
 package com.danilo.financeiro.financialhealth.domain.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Usuario {
+public class Usuario implements UserDetails {
 
     private static final String USUARIO = "usuario";
     @Id
@@ -100,15 +103,16 @@ public class Usuario {
         this.titulos = titulos;
     }
 
-   /* @Override
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
     /**
      * Quando o framework tentar pegar senha, qual será esse campo do usuário
+     *
      * @return
-
+     */
     @Override
     public String getPassword() {
         return senha;
@@ -137,5 +141,5 @@ public class Usuario {
     @Override
     public boolean isEnabled() {
         return true;
-    }*/
+    }
 }
