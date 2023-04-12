@@ -111,4 +111,14 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
             throw new ResourceBadRequestException("E-mail e ou senha são obrigatórios");
         }
     }
+
+    public UsuarioResponseDto obterPorEmail(String email) {
+        Optional<Usuario> optUsuario = usuarioRepository.findByEmail(email);
+
+        if (optUsuario.isEmpty()) {
+            throw new ResourceNotFoundException("Não foi possível encontrar o usuário com o email: "+ email);
+        }
+
+        return mapper.map(optUsuario.get(), UsuarioResponseDto.class);
+    }
 }
