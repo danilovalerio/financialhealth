@@ -7,7 +7,7 @@ import java.util.Date;
  */
 public class UsuarioResponseDto {
 
-    private String id;
+    private Long id;
     private String nome;
     private String email;
     private String foto;
@@ -15,11 +15,11 @@ public class UsuarioResponseDto {
 
     private Date dataCadastro;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
