@@ -33,9 +33,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private AuthenticationManager authenticationManager;
     private JwtUtil jwtUtil;
 
-    @Autowired
-    private ModelMapper mapper;
-
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
         super();
         this.authenticationManager = authenticationManager;
@@ -74,7 +71,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             return auth;
 
         } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("Usuario ou senha inválidos" + e);
+            throw new BadCredentialsException("Usuário ou senha inválidos " + e);
         } catch (Exception e) {
             throw new InternalAuthenticationServiceException(e.getMessage());
         }
@@ -93,16 +90,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //gera um token para o Usuario
         String token = jwtUtil.gerarToken(authResult);
 
-        /* Trazer os dados e montar propriedade por propriedade ou
-          Seguir o model mapper exemplificado abaixo
+        /* Trazer os dados e montar propriedade por propriedade */
 
         UsuarioResponseDto usuarioResponse = new UsuarioResponseDto();
-        usuarioResponse.setEmail(usuario.getEmail());
         usuarioResponse.setId(usuario.getId());
+        usuarioResponse.setEmail(usuario.getEmail());
+        usuarioResponse.setNome(usuario.getNome());
         usuarioResponse.setFoto(usuario.getFoto());
-         */
-
-        UsuarioResponseDto usuarioResponse = mapper.map(usuario, UsuarioResponseDto.class);
+        usuarioResponse.setDataInativacao(usuario.getDataInativacao());
+        usuarioResponse.setDataCadastro(usuario.getDataCadastro());
 
         LoginResponseDto loginResponse = new LoginResponseDto();
         loginResponse.setToken("Bearer " + token);

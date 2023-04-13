@@ -1,14 +1,10 @@
 package com.danilo.financeiro.financialhealth.security;
 
 import com.danilo.financeiro.financialhealth.domain.model.Usuario;
-import com.danilo.financeiro.financialhealth.domain.service.UsuarioService;
-import com.danilo.financeiro.financialhealth.dto.usuario.UsuarioResponseDto;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,15 +16,15 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private JwtUtil jwtUtil;
 
-    @Autowired
-    private UsuarioService usuarioService;
+    private UserDetailsSecurityServer userDetailsSecurityServer;
 
-    @Autowired
-    private ModelMapper mapper;
-
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+    public JwtAuthorizationFilter(
+            AuthenticationManager authenticationManager,
+            JwtUtil jwtUtil,
+            UserDetailsSecurityServer userDetailsSecurityServer) {
         super(authenticationManager);
         this.jwtUtil = jwtUtil;
+        this.userDetailsSecurityServer = userDetailsSecurityServer;
     }
 
     @Override
@@ -58,8 +54,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private UsernamePasswordAuthenticationToken getAuthentication(String token) {
         if (jwtUtil.isValidToken(token)) {
             String usernameEmail = jwtUtil.getUserName(token);
-            UsuarioResponseDto usuarioDto = usuarioService.obterPorEmail(usernameEmail);
-            Usuario usuario = mapper.map(usuarioDto, Usuario.class);
+
+            Usuario usuario = (Usuario) userDetailsSecurityServer.loadUserByUsername(usernameEmail);
 
             return new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
         }

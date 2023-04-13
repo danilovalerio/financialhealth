@@ -28,6 +28,9 @@ public class WebSecurityConfig {
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
 
+    @Autowired
+    private UserDetailsSecurityServer userDetailsSecurityServer;
+
     /**
      * Criptografador da senha
      * @return
@@ -65,7 +68,7 @@ public class WebSecurityConfig {
         );
 
         httpSecurity.addFilter(new JwtAuthorizationFilter(
-                authenticationManager(authenticationConfiguration), jwtUtil)
+                authenticationManager(authenticationConfiguration), jwtUtil, userDetailsSecurityServer)
         );
 
         return httpSecurity.build();
