@@ -8,6 +8,7 @@ import com.danilo.financeiro.financialhealth.dto.usuario.UsuarioRequestDto;
 import com.danilo.financeiro.financialhealth.dto.usuario.UsuarioResponseDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
 
     @Autowired
     private ModelMapper mapper;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<UsuarioResponseDto> obterTodos() {
@@ -68,7 +72,9 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
         Usuario usuario = mapper.map(dto, Usuario.class);
         usuario.setId(null);
         usuario.setDataCadastro(new Date());
-        //TODO: criptografar a senha do usuário
+        //Criptografar a senha do usuário
+        String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaCriptografada);
         usuario = usuarioRepository.save(usuario);
 
         return mapper.map(usuario, UsuarioResponseDto.class);
@@ -80,7 +86,10 @@ public class UsuarioService implements ICRUDService<UsuarioRequestDto, UsuarioRe
         validarUsuario(dto);
 
         Usuario usuario = mapper.map(dto, Usuario.class);
-        //TODO: criptografar a senha do usuário
+        //Criptografar a senha do usuário
+        String senhaCriptografada = passwordEncoder.encode(dto.getSenha());
+        usuario.setSenha(senhaCriptografada);
+
         usuario.setId(id);
         usuario.setDataCadastro(usuarioBanco.getDataCadastro());
         usuario.setDataInativacao(usuarioBanco.getDataInativacao());
