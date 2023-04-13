@@ -1,4 +1,4 @@
-package com.danilo.financeiro.financialhealth.domain.respository;
+package com.danilo.financeiro.financialhealth.domain.repository;
 
 import com.danilo.financeiro.financialhealth.domain.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;

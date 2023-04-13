@@ -3,7 +3,7 @@ package com.danilo.financeiro.financialhealth.domain.service;
 import com.danilo.financeiro.financialhealth.domain.exception.ResourceBadRequestException;
 import com.danilo.financeiro.financialhealth.domain.exception.ResourceNotFoundException;
 import com.danilo.financeiro.financialhealth.domain.model.Usuario;
-import com.danilo.financeiro.financialhealth.domain.respository.UsuarioRepository;
+import com.danilo.financeiro.financialhealth.domain.repository.UsuarioRepository;
 import com.danilo.financeiro.financialhealth.dto.usuario.UsuarioRequestDto;
 import com.danilo.financeiro.financialhealth.dto.usuario.UsuarioResponseDto;
 import org.modelmapper.ModelMapper;
