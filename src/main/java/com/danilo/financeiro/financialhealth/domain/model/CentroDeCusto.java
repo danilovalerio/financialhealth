@@ -3,6 +3,7 @@ package com.danilo.financeiro.financialhealth.domain.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -32,6 +33,16 @@ public class CentroDeCusto {
     @ManyToMany(mappedBy = CENTRO_DE_CUSTO)
     @JsonBackReference //quando busca centor de custo não buscar os titulos
     private List<Titulo> titulos;
+
+    private Date dataInativacao;
+
+    public Date getDataInativacao() {
+        return dataInativacao;
+    }
+
+    public void setDataInativacao(Date dataInativacao) {
+        this.dataInativacao = dataInativacao;
+    }
 
     public Usuario getUsuario() {
         return usuario;

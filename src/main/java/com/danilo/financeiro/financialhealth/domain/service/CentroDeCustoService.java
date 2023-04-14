@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,10 +81,17 @@ public class CentroDeCustoService implements ICRUDService<CentroDeCustoRequestDt
 
     @Override
     public void deletar(Long id) {
-        // Já valida se o cara existe
-        obterPorId(id);
+        Optional<CentroDeCusto> optCentroDeCusto = centroDeCustoRepository.findById(id);
 
-        centroDeCustoRepository.deleteById(id);
+        if (optCentroDeCusto.isEmpty()) {
+            throw new ResourceNotFoundException("Não foi possível encontrar o centro de custo com o id: "+id);
+        }
+
+        CentroDeCusto centroDeCusto = optCentroDeCusto.get();
+        centroDeCusto.setDataInativacao(new Date());
+
+        centroDeCustoRepository.save(centroDeCusto);
+        // centroDeCustoRepository.deleteById(id);
 
     }
 }
