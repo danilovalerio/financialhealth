@@ -27,7 +27,9 @@ public class CentroDeCustoService implements ICRUDService<CentroDeCustoRequestDt
 
     @Override
     public List<CentroDeCustoResponseDto> obterTodos() {
-        List<CentroDeCusto> centrosDeCusto = centroDeCustoRepository.findAll();
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        List<CentroDeCusto> centrosDeCusto = centroDeCustoRepository.findAll();
+        List<CentroDeCusto> centrosDeCusto = centroDeCustoRepository.findByUsuario(usuario);
 
         return centrosDeCusto.stream()
                 .map(centroDeCusto -> mapper.map(centroDeCusto, CentroDeCustoResponseDto.class))
@@ -38,7 +40,9 @@ public class CentroDeCustoService implements ICRUDService<CentroDeCustoRequestDt
     public CentroDeCustoResponseDto obterPorId(Long id) {
         Optional<CentroDeCusto> optCentroDeCusto = centroDeCustoRepository.findById(id);
 
-        if (optCentroDeCusto.isEmpty()) {
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (optCentroDeCusto.isEmpty() ||  optCentroDeCusto.get().getUsuario().getId() != usuario.getId()) {
             throw new ResourceNotFoundException("Não foi encontrado o centro de custo com esse id "+id);
         }
 

@@ -1,6 +1,7 @@
 package com.danilo.financeiro.financialhealth.domain.repository;
 
 import com.danilo.financeiro.financialhealth.domain.model.Titulo;
+import com.danilo.financeiro.financialhealth.domain.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,4 +24,6 @@ public interface TituloRepository extends JpaRepository<Titulo, Long> {
             @Param("periodoInicial") String periodoInicial,
             @Param("periodoFinal") String periodoFinal
     );
+
+    List<Titulo> findByUsuario(Usuario usuario);
 }
