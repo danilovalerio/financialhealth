@@ -44,6 +44,7 @@ public class Titulo {
     private Date dataVencimento;
 
     private Date dataPagamento;
+    private Date dataInativacao;
 
     @Column(columnDefinition = "TEXT")
     private String observacao;
@@ -134,5 +135,13 @@ public class Titulo {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+    public Date getDataInativacao() {
+        return dataInativacao;
+    }
+
+    public void setDataInativacao(Date dataInativacao) {
+        this.dataInativacao = dataInativacao;
     }
 }
