@@ -4,7 +4,7 @@ import com.danilo.financeiro.financialhealth.dto.titulo.TituloResponseDto;
 
 import java.util.List;
 
-public class DashBoardResponseDto {
+public class DashboardResponseDto {
 
     private Double totalApagar;
     private Double totalAreceber;
@@ -14,11 +14,11 @@ public class DashBoardResponseDto {
     List<TituloResponseDto> titulosApagar;
     List<TituloResponseDto> titulosAreceber;
 
-    DashBoardResponseDto(){
+    public DashboardResponseDto(){
 
     }
 
-    public DashBoardResponseDto(Double totalApagar, Double totalAreceber, Double saldo, List<TituloResponseDto> titulosApagar, List<TituloResponseDto> titulosAreceber) {
+    public DashboardResponseDto(Double totalApagar, Double totalAreceber, Double saldo, List<TituloResponseDto> titulosApagar, List<TituloResponseDto> titulosAreceber) {
         this.totalApagar = totalApagar;
         this.totalAreceber = totalAreceber;
         this.saldo = saldo;
