@@ -16,6 +16,7 @@ public class TituloResponseDto {
     private Date dataReferencia;
     private Date dataVencimento;
     private Date dataPagamento;
+    private Date dataInativacao;
     private String observacao;
 
     public Long getId() {
@@ -88,6 +89,14 @@ public class TituloResponseDto {
 
     public void setDataPagamento(Date dataPagamento) {
         this.dataPagamento = dataPagamento;
+    }
+
+    public Date getDataInativacao() {
+        return dataInativacao;
+    }
+
+    public void setDataInativacao(Date dataInativacao) {
+        this.dataInativacao = dataInativacao;
     }
 
     public String getObservacao() {
