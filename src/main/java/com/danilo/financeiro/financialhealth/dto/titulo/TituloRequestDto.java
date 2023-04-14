@@ -1,7 +1,6 @@
 package com.danilo.financeiro.financialhealth.dto.titulo;
 
 import com.danilo.financeiro.financialhealth.domain.Enum.ETipoTitulo;
-import com.danilo.financeiro.financialhealth.domain.model.CentroDeCusto;
 import com.danilo.financeiro.financialhealth.dto.centrodecusto.CentroDeCustoRequestDto;
 
 import java.util.Date;
