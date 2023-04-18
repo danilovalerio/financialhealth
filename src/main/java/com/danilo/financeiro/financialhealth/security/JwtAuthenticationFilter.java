@@ -11,8 +11,6 @@ import com.google.gson.Gson;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -47,6 +45,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     /**
      * Se aqui der OK e está tudo correto, o Spring chama o "successfulAuthentication"
+     *
      * @param request
      * @param response
      * @return
@@ -87,6 +86,22 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         //faz o casting para usuario do objeto getPrincipal
         Usuario usuario = (Usuario) authResult.getPrincipal();
+
+        //valida se usuario está ativo
+        if (usuario.getDataInativacao() != null || !usuario.getDataInativacao().toString().isBlank()) {
+            ErrorResposta erro = new ErrorResposta(
+                    ConversorData.converterDateParaDataEHora(new Date()),
+                    HttpStatus.UNAUTHORIZED.value(),
+                    "Unauthorized",
+                    "Verifique as informações e tente novamente."
+            );
+
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.getWriter().write(new Gson().toJson(erro));
+            return;
+        }
+
         //gera um token para o Usuario
         String token = jwtUtil.gerarToken(authResult);
 
