@@ -88,7 +88,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         Usuario usuario = (Usuario) authResult.getPrincipal();
 
         //valida se usuario está ativo
-        if (usuario.getDataInativacao() != null || !usuario.getDataInativacao().toString().isBlank()) {
+        if (usuario.getDataInativacao() != null) {
             ErrorResposta erro = new ErrorResposta(
                     ConversorData.converterDateParaDataEHora(new Date()),
                     HttpStatus.UNAUTHORIZED.value(),
