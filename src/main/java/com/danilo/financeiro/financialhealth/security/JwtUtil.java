@@ -76,6 +76,7 @@ public class JwtUtil {
             return claims;
         } catch (Exception e) {
             e.printStackTrace();
+            //TODO faz sentido definir mensagem de erro aqui?
             return null;
         }
     }
