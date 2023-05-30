@@ -32,7 +32,12 @@ public class TituloService implements ICRUDService<TituloRequestDto, TituloRespo
 
 //        List<Titulo> titulos = tituloRepository.findAll();
         List<Titulo> titulos = tituloRepository.findByUsuario(usuario);
-        List<TituloResponseDto> titulosResponse = titulos.stream().map(
+        List<Titulo> titulosAtivos = titulos
+                .stream()
+                .filter(titulo -> titulo.getDataInativacao() == null)
+                .toList();
+
+        List<TituloResponseDto> titulosResponse = titulosAtivos.stream().map(
                 titulo -> mapper.map(titulo, TituloResponseDto.class)
         ).collect(Collectors.toList());
         return titulosResponse;
@@ -94,7 +99,12 @@ public class TituloService implements ICRUDService<TituloRequestDto, TituloRespo
         }
 
         Titulo titulo = optTitulo.get();
-        titulo.setDataInativacao(new Date());
+
+        if (titulo.getDataInativacao() == null) {
+            titulo.setDataInativacao(new Date());
+        } else {
+            throw new ResourceNotFoundException("Não foi possível encontrar o titulo com o id: "+id);
+        }
 
         tituloRepository.save(titulo);
     }
@@ -106,7 +116,12 @@ public class TituloService implements ICRUDService<TituloRequestDto, TituloRespo
                 periodoInicial, periodoFinal
         );
 
-        return titulos.stream()
+        List<Titulo> titulosAtivos = titulos
+                .stream()
+                .filter(titulo -> titulo.getDataInativacao() == null)
+                .toList();
+
+        return titulosAtivos.stream()
                 .map(titulo -> mapper.map(titulo, TituloResponseDto.class))
                 .collect(Collectors.toList());
 
