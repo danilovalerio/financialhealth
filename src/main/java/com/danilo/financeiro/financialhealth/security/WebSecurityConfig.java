@@ -58,7 +58,13 @@ public class WebSecurityConfig {
                 .cors().and().csrf().disable()
                 .authorizeHttpRequests((auth) ->
                         //Toda vez que alguém fizer um post para essa URL permitimos todos
-                        auth.requestMatchers(HttpMethod.POST, "/api/usuarios").permitAll()
+                        auth.requestMatchers(HttpMethod.POST, "/api/usuarios","/swagger-ui/index.html").permitAll()
+                                .requestMatchers(
+                                        HttpMethod.GET,
+                                        "/swagger-ui/**",
+                                        "/swagger-resources/*",
+                                        "/v3/api-docs/**"
+                                ).permitAll()
                                 //para qualquer outro request tem que estar autenticado
                                 .anyRequest()
                                 .authenticated())
