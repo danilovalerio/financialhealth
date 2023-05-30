@@ -48,7 +48,7 @@ public class TituloController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id){
         tituloService.deletar(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok("Item removido com sucesso.");
     }
 
 }
