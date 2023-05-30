@@ -22,3 +22,8 @@ auth:
   #1 dia em milliseconds 86400000
   jwt-expiration-millisec: 86400000
 
+#configura a url da documentacao
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
